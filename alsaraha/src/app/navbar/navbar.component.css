@@ -1,0 +1,14 @@
+.navbar
+{
+    margin-bottom: 40px;
+}
+.navbar a
+{
+    transition-duration: 0.5s;
+}
+
+.navbar a:hover{
+    cursor:pointer;
+    background-color: #3e3e3e;
+    border-radius: 20px;
+}

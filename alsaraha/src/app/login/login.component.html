@@ -1,0 +1,27 @@
+<section class="login">
+  <form class="container" [formGroup]="singInForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <label class="offset-sm-2 col-sm-2 col-form-label">Username</label>
+      <div class="col-sm-4">
+        <input placeholder="Username" class="form-control" type="text"
+        name="Username"
+        formControlName="Username"
+        >
+      </div>
+    </div>
+    <div class="form-group row">
+        <label class="offset-sm-2 col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-4">
+          <input placeholder="Password" class="form-control" type="password"
+          name="Password"
+          formControlName="Password"
+          >
+        </div>
+      </div>
+      <div class="offset-sm-4 col-sm-4">
+        <button type="submit" class="btn btn-success btn-block">sign in</button>
+      </div>
+  </form>
+  <p *ngIf ="success">you are loged in</p>
+  <p *ngIf ="!success">you are not loged in</p>
+</section>

@@ -16,8 +16,6 @@ ValidatorEmailCorrect = (Email)=>{
     if(!Email)
     return false;
 }
-
-
 const ValidationErrorEmail = [
     {
         validator:ValidatorEmailLenght,
@@ -53,16 +51,18 @@ ValidationErrorUserName = [
     {
         validator:ValidationErrorUserName,
         message:'the Email should be like this Abdulfattah'   
-     },
+     }
 ]
 
 
+
+
 var user = new Schema({
-    Fname:{type:String   ,required:true},
-    Lname:{type:String   ,required:true},
-    UserName:{type:String,required:true , unique:true,validate:ValidationErrorUserName},
-    PassWord:{type:String,required:true},
-    Email:{type:String , required:true , unique:true , validate:ValidationErrorEmail}
+    Email:{type:String , required:true ,  unique:true , validate:ValidationErrorEmail},
+    Password:{type:String , required:true},
+    Username:{type:String , required:true ,unique:true },
+    Name:{type:String , required:true} ,
+    Gender:{type:String , required:true}
 });
 
 

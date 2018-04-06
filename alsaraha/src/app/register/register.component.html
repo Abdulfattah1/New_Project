@@ -1,0 +1,82 @@
+<div class="container">
+
+<div class="container">
+<h3 class="text-center">Register</h3>
+
+<form [formGroup]="singUp" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <label  class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block">Email</label>
+      <div class="col-xs-12 col-sm-6">
+        <input type="text" class="form-control" placeholder="Email" id="Email" formControlName="Email"
+        >
+      </div>
+      <span  *ngIf="!singUp.get('Email').valid && singUp.get('Email').touched">Email is not valid</span>
+    </div>
+    <div class="form-group row">
+      <label for="" class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block" >Password</label>
+      <div class="col-sm-6">
+        <input type="password" class="form-control" placeholder="Password" formControlName="Password"
+        >
+      </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="" class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block" >Password Confirmation</label>
+        <div class="col-sm-6">
+          <input type="password" class="form-control" id="" placeholder="Password_conform" formControlName="Password_conform"
+          >
+        </div>
+      </div>
+
+      <div class="form-group row">
+          <label for="" class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block" >Username</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" id="" placeholder="Username" formControlName="Username"
+            >
+          </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="" class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block" >Name</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="" placeholder="Name" formControlName="Name"
+              >
+            </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="" class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block" >Birth date</label>
+              <div class="col-sm-6">
+                <input type="date" class="form-control" id="" placeholder="Password Confirmation" formControlName="Birth_date"
+
+                >
+              </div>
+          </div>
+
+
+          <div class="form-group row">
+              <label for="" class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block" >Gender</label>
+              <div class="col-sm-6">
+                <select class="form-control" formControlName="Gender">
+                  <option>Male</option>
+                  <option>famele</option>
+                </select>
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="" class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block" >Gender</label>
+              <div class="col-sm-6">
+                <select class="form-control" formControlName="Country">
+                  <option>syria</option>
+                  <option>lebanon</option>
+                </select>
+              </div>
+          </div>
+          <div class="offset-lg-4 col-lg-6">
+          <button type="submit" class="btn btn-success btn-block">Register</button>
+         </div> 
+        </form>
+        <p *ngIf="success">SUCESSFULL</p>
+        <p *ngIf="!success">try again</p>
+</div>

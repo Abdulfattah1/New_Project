@@ -1,0 +1,21 @@
+<section class="Message">
+  <div class="card">
+    <div class="card-header">
+        <img class="rounded mx-auto d-block card-img-top" src="../../../assets/avatar1.jfif">
+        <h5 class="card-title text-center">Abdulfattah</h5>
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <textarea rows="5" maxlength="700" class="form-control" style="background:none"  [(ngModel)]="text_box"
+
+        placeholder="leave a consteactive message">
+        </textarea>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="button" class="btn btn-success offset-sm-4 col-sm-4" (click)="Send_message()">
+        Send
+      </button>
+    </div>
+  </div>
+</section>
