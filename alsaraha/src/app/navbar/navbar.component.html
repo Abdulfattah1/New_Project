@@ -11,31 +11,32 @@
 
         <li class="nav-item">
             <a class="nav-link" routerLink="user/profile"
-            *ngIf="service.LogInOrOut()">My message</a>
+            *ngIf="service.ifLoggedIn()"
+            >Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" routerLink="user/register" 
-          *ngIf="!service.LogInOrOut()">Register</a>
+          *ngIf="!service.ifLoggedIn()"
+          >Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="/user/login" 
-            *ngIf="!service.LogInOrOut()">Login</a>
-
+            <a class="nav-link" routerLinkActive="active" routerLink="/user/login"
+            *ngIf="!service.ifLoggedIn()"
+            >Login</a>
         </li> 
         <li class="nav-item">
-            <a class="nav-link"  *ngIf="!service.LogInOrOut()">About Us</a>
+            <a class="nav-link" >About Us</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link"  *ngIf="!service.LogInOrOut()">Contact Us</a>
+            <a class="nav-link" >Contact Us</a>
         </li>
         <li class="nav-item">
           <a class="nav-link"
-          *ngIf="service.LogInOrOut()">Setting</a>
+          >Setting</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" (click)="service.logOut()"
-            *ngIf="service.LogInOrOut()">Logout</a>
+            <a class="nav-link" (click)="service.logOut()" *ngIf="service.ifLoggedIn()">Logout</a>
         </li>
       </ul>
     </div>

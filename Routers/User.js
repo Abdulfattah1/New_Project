@@ -1,13 +1,12 @@
 
 const user = require('../models/User');
-const messageSent = require('../models/MessageSent');
-const messageRecive = require('../models/MessageRecived');
 const mongoose  = require('mongoose');
 const config = require('../config/database');
 const jwt = require('jsonwebtoken');
 module.exports = (Router)=>{
+
     Router.post('/register',(req,res)=>{
-        console.log(req.body);
+        //console.log(req.body);
         if(!req.body.Email)
         {
             res.json("A value of Email is required.");
@@ -73,7 +72,9 @@ module.exports = (Router)=>{
                     }
                 }
                 else 
+                {
                 res.json({success:true , message:'good job'});
+                }
             });
         }
     });
@@ -114,7 +115,35 @@ module.exports = (Router)=>{
             });
         }
     });
+    var arr = [];
+    Router.post('/message',(req,res)=>{
+        console.log(req.body);
+        user.findOne({Username:req.body.userName},{},(err,data)=>{
+            if(err)
+            res.json({success:false , message:err});
+            else 
+            {
+                arr = data.message_Send;
+                var date = new Date();
+                date = date.toDateString();
+                arr.push({context:req.body.message , date:date});
+                console.log(arr);
+                user.update({Username:req.body.userName},{message_Send:arr},(err,datA)=>{
+                    if(err)
+                    res.json({success:false , message:err});
+                    else 
+                    {
+                        res.json({success:true , message:user});
+                    }
+                });
+            }
+        });
+    });
+
+
     
+
+        
 
     Router.use((req,res,next)=>{
        const token =  req.headers.authorization;
@@ -132,6 +161,22 @@ module.exports = (Router)=>{
            next();
        }
     });
+
+
+    Router.get('/getMessage',(req,res)=>{
+        user.findOne({_id:req.decoded.userId}).select('Username message_Recive message_Send').exec((err,data)=>{
+            if(err)
+            res.json({success:false , message:err});
+            else 
+            {
+                var message_Send = data.message_Send;
+                var message_Recive = data.message_Recive;
+                res.json({success:true ,userName:data.Username ,  message_Send:message_Send , message_Recive:message_Recive});
+            }
+        });
+    });
+
+
     Router.get('/profile',(req,res)=>{
         user.findOne({_id:req.decoded.userId}).select('Username Email').exec((err,user)=>{
             if(err)
@@ -146,5 +191,6 @@ module.exports = (Router)=>{
             }
         });
     });
+   
     return Router;
 }

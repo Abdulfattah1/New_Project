@@ -14,6 +14,10 @@ import {  RouterModule } from  '@angular/router';
 import { UserComponent } from './user/user.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { MessagesComponent } from './user/messages/messages.component';
+import { NothingComponent } from './nothing/nothing.component';
+import { ThanksComponent } from './thanks/thanks.component';
+import { MessageSentComponent } from './user/message-sent/message-sent.component';
+import { HttpClientModule } from '@angular/common/http'
 
 const Router_pages:Routes = [
   {
@@ -45,6 +49,18 @@ const Router_pages:Routes = [
     component:MessagesComponent
   },
   {
+    path:'THX',
+    component:ThanksComponent
+  },
+  {
+    path:'nothing',
+    component:NothingComponent
+  },
+  {
+    path:'messageSent',
+    component:MessageSentComponent
+  },
+  {
     path:'**',
     component:HomeComponent
   },
@@ -66,6 +82,9 @@ const Router_pages:Routes = [
     UserComponent,
     ProfileComponent,
     MessagesComponent,
+    NothingComponent,
+    ThanksComponent,
+    MessageSentComponent,
     
   ],
   imports: [

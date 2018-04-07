@@ -21,35 +21,32 @@ export class LoginComponent implements OnInit {
       'Password': new FormControl(null)
     });
 
-    function supports_html5_storage() {
+   /* function supports_html5_storage() {
       try {
             console.log('localStorage' in window && window['localStorage'] !== null);
           } catch (e) {
         console.log(false);
        }
      }
+     */
   }
 
   
-
-
-
-
-
   onSubmit()
   {
     var singInObject = {
       Username:this.singInForm.value.Username,
       Password:this.singInForm.value.Password
     }
-    this.service.singInUser(singInObject).subscribe(
+    this.service.singIn(singInObject).subscribe(
       (data)=>{
         console.log(data);
-       localStorage.setItem('token' , data.token);
-       localStorage.setItem('userName',data.userName);
        if(data.success)
        {
-         this.success = true;
+        localStorage.setItem('token' , data.token);
+        localStorage.setItem('userName',data.userName);
+        this.success = true;
+        this.service.setUserName(data.userName);
         setTimeout(()=>{
           this.router.navigate(['/home']);
         },2000);

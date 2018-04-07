@@ -14,16 +14,7 @@ export class ProfileComponent implements OnInit {
   constructor(private service:ServiceService) { }
   
   ngOnInit() {
-    this.service.getProfile().subscribe((res)=>{
-      console.log(res);
-      if(!res.success)
-      this.success=false;
-      else 
-      {
-        this.userName = res.user.Username;
-        this.Email = res.user.Email;
-      }
-    });
+    
   }
 
 }

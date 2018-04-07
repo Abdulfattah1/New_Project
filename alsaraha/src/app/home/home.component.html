@@ -4,7 +4,9 @@
                 <div class="col-sm-12 card"> 
                     <img class="rounded mx-auto d-block card-img-top" src="../../../assets/avatar1.jfif">
                     <div class="card-body">
-                        <a><h5 class="card-title text-center" (click)="USER()">{{username}}</h5></a> 
+                        <a (click)="Set_Url()"><h5 class="card-title text-center"
+                        *ngIf="ifLoggedIn()"    
+                        >{{userName}}</h5></a> 
                     </div>
                 </div>
         </div>
@@ -14,19 +16,36 @@
                 <h1 class="text-center">message</h1>
             </div>
         <div class="row card-body">
-            <div class="col-sm-3">
-                <a href="#"><button class="btn btn-success btn-block">Received</button></a> 
+            <div class="col-sm-3 form-group">
+                <a (click)="Recived()"><button class="btn btn-success btn-block">Received</button></a> 
             </div>
-            <div class="col-sm-3">
-                <a href="#"><button class="btn btn-danger btn-block">Sent</button></a>
+            <div class="col-sm-3 form-group">
+                <a (click)="Sent()"><button class="btn btn-danger btn-block">Sent</button></a>
             </div>
-            <div class="col-sm-3">
-                <a href="#"><button class="btn btn-danger btn-block">Send</button></a> 
+            <div class="col-sm-3 form-group">
+                <a routerLink="/messageSent"><button class="btn btn-danger btn-block">Send</button></a> 
             </div>
-            <div class="col-sm-3">
-                <a href="#"><button class="btn btn-success btn-block">favor</button></a>
+            <div class="col-sm-3 form-group">
+                <a routerLink="/messageSent"><button class="btn btn-success btn-block">favor</button></a>
             </div>
         </div>
         </section>
+
+        <div class="card text-center">
+                <div class="card-header">
+                  <h5>take your time to check them out </h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let item of messages"
+                        >
+                         {{item.context}}
+                          <span class="badge badge-primary badge-pill">14</span>
+                        </li>
+                    </ul> 
+                </div>
+              </div>
+              
 </div>
 </div>

@@ -10,9 +10,6 @@ const mongoose = require('mongoose');
 const config = require('./config/database');
 const cors = require('cors');
 const User = require('./models/User');
-const messageSent = require('./models/MessageSent');
-const messageRecive = require('./models/MessageRecived');
-
 //database 
 
 const server = require('http').createServer(app);
@@ -20,9 +17,6 @@ const io = require('socket.io').listen(server);
 io.on('connection',(socket)=>{
     console.log('socket is working');
 });
-
-
-
 
 
 mongoose.connect(config.url,function(err,db){

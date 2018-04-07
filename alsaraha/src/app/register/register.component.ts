@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
       Birth_date:this.singUp.value.Birth_date,
       Gender:this.singUp.value.Gender
   };
-    this.Service.StoreUserInformation(person_info).subscribe((res)=>
+    this.Service.register(person_info).subscribe((res)=>
     {
       console.log(res);
       if(!res.success)
@@ -48,11 +48,10 @@ export class RegisterComponent implements OnInit {
       else{
         this.success = true;
         setTimeout(()=>{
-          this.router.navigate(['/USER']);
+          this.router.navigate(['user','login']);
         },2000);
       }
     }
     ,(err)=>console.log(err));
   }
-
 }

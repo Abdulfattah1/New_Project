@@ -62,10 +62,17 @@ var user = new Schema({
     Password:{type:String , required:true},
     Username:{type:String , required:true ,unique:true },
     Name:{type:String , required:true} ,
-    Gender:{type:String , required:true}
+    Gender:{type:String , required:true} , 
+
+    message_Recive:[{
+        ID:Schema.Types.ObjectId ,
+        context:{type:String , require:true }
+    }],
+        message_Send:[{
+        ID:Schema.Types.ObjectId ,
+        context:{type:String , require:true},
+        date:{type:Date , require:true}
+    }],
 });
 
-
-
-
-module.exports = mongoose.model('user',user);
+module.exports = mongoose.model('USER',user);
