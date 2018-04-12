@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
   
   userName;
   messages=[];
+
   ngOnInit() {
     this.userName = "";
-    this.Chat.getMessage();
     }
 
     ifLoggedIn()
@@ -40,14 +40,5 @@ export class HomeComponent implements OnInit {
       {
         this.router.navigate(['/user',this.userName]);
       }
-    }
-    Recived()
-    {
-      this.messages = this.Chat.getMessageRecive();
-    }
-
-    Sent()
-    {
-      this.messages = this.Chat.getMessageSent();
     }
 }

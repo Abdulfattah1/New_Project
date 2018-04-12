@@ -66,13 +66,19 @@ var user = new Schema({
 
     message_Recive:[{
         ID:Schema.Types.ObjectId ,
-        context:{type:String , require:true }
+        context:{type:String , require:true },
+        date:{type:Date , require:true}
     }],
-        message_Send:[{
+    message_Send:[{
         ID:Schema.Types.ObjectId ,
         context:{type:String , require:true},
         date:{type:Date , require:true}
     }],
+    favor:[{
+        ID:{type:Schema.Types.ObjectId , unique:true}, 
+        context:{type:String , require:true},
+        date:{type:Date , require:true } 
+    }]
 });
 
 module.exports = mongoose.model('USER',user);

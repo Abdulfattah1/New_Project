@@ -8,32 +8,56 @@ export class ChatServiceService {
 
   constructor(private http:Http,
   private service:ServiceService) { }
+    
+  public message_Recived=[];
+  public message_Sent=[];
+
   Send_message(data)
   {
     return this.http.post('http://localhost:3000/user/message',data).map((res)=>res.json());
   }
+
+  Delete(Item , Type)
+  {
+    this.service.createHeader();
+    var messages = {
+      Type:Type,
+      message_Item:Item
+    }
+    console.log(messages);
+    return this.http.post("http://localhost:3000/user/Delete",messages,this.service.option).map((res)=>res.json());
+  }
   
-  private message_Recived=[];
-  private message_Sent=[];
 
-  getMessage()
+  getReciveMessage()
   {
-     this.service.createHeader();
-     this.http.get('http://localhost:3000/user/getMessage',this.service.option).map((res=>res.json()))
-    .subscribe((data)=>{
-      this.message_Sent = data.message_Send;
-      this.message_Recived = data.message_Recive;
-    });
+    this.service.createHeader();
+    return this.http.get('http://localhost:3000/user/getReciveMessage',this.service.option).map((res=>res.json()));
+  }
+  getSendMessage()
+  {
+    this.service.createHeader();
+    return this.http.get('http://localhost:3000/user/getSendMessage',this.service.option).map((res=>res.json()));
   }
 
-  getMessageSent()
+  favor(message)
   {
+    console.log(message.message);
     
-    return this.message_Sent;
+    this.service.createHeader();
+    return this.http.post("http://localhost:3000/user/addFavor",message,this.service.option).
+    map((res)=>res.json());
   }
 
-  getMessageRecive()
+  getFavor()
   {
-    return this.message_Recived;
+    this.service.createHeader();
+    return this.http.get('http://localhost:3000/user/getFavor',this.service.option).map((res=>res.json()));
+  }
+
+  removeFavorMessage(message)
+  {
+    this.service.createHeader();
+    return this.http.post('http://localhost:3000/user/removeFavorMessage',message,this.service.option).map((res=>res.json()));
   }
 }

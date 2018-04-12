@@ -16,20 +16,36 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { MessagesComponent } from './user/messages/messages.component';
 import { NothingComponent } from './nothing/nothing.component';
 import { ThanksComponent } from './thanks/thanks.component';
-import { MessageSentComponent } from './user/message-sent/message-sent.component';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { MessageReciveComponent } from './home/message-recive/message-recive.component';
+import { MessageSendComponent } from './home/message-send/message-send.component';
+import { FavorComponent } from './home/favor/favor.component'
 
 const Router_pages:Routes = [
   {
-    path:'Home',
-    component:HomeComponent
+    path:'home',
+    component:HomeComponent , 
+    children:[
+      {
+        path:'messageRecive',
+        component:MessageReciveComponent
+      },
+      {
+        path:'messageSend' , 
+        component:MessageSendComponent
+      },
+      {
+        path:'favor',
+        component:FavorComponent
+      }
+    ]
   },
   {
-    path:'user/register',
+    path:'register',
     component:RegisterComponent
   },
   {
-    path:'user/login',
+    path:'login',
     component:LoginComponent
   },
   {
@@ -37,11 +53,11 @@ const Router_pages:Routes = [
     component:UserComponent
   },
   {
-    path:'user/profile',
+    path:'profile',
     component:ProfileComponent
   },
   {
-    path:'user/message',
+    path:'message',
     component:MessagesComponent
   },
   {
@@ -57,8 +73,8 @@ const Router_pages:Routes = [
     component:NothingComponent
   },
   {
-    path:'messageSent',
-    component:MessageSentComponent
+    path:'about',
+    component:AboutUsComponent
   },
   {
     path:'**',
@@ -84,7 +100,9 @@ const Router_pages:Routes = [
     MessagesComponent,
     NothingComponent,
     ThanksComponent,
-    MessageSentComponent,
+    MessageReciveComponent,
+    MessageSendComponent,
+    FavorComponent
     
   ],
   imports: [

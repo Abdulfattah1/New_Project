@@ -1,0 +1,113 @@
+<div class="row">
+        <div class="col-2">
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-profile">Personal information</a>
+            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-password">password</a>
+            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-Deactivate">Deactivate</a>
+            <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings">Settings</a>
+          </div>
+        </div>
+        <div class="col-10">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-profile">
+
+                <!-- personal information -->
+            <div class="card">
+                    <div class="card-header">
+                        <p class="card-title text-center">Edit personal information</p>
+                    </div>
+                    <form [formGroup]="personal_Info_Form" (ngSubmit)="Submit_User()">
+                    <div class="card-block container">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-lable">username</label>
+                            <div class="col-sm-6 col-xs-12">
+                                <input class="form-control" type="text" placeholder="Username"
+                                name="userName"
+                                [(ngModel)]="Person.userName"
+                                formControlName="userName"
+                                >
+                            </div>
+                            <div class="col-sm-2 col-xs-12">
+                                <button class="btn btn-default" type="button" (click)="changeUserName()">Edit</button>
+                            </div>
+                        </div>
+    
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-lable">Email</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" type="text" placeholder="Email"
+                                [(ngModel)]="Person.Email"
+                                name="email"
+                                formControlName="email">
+                            </div>
+                            <div class="col-sm-2 col-xs-12">
+                                <button class="btn btn-default" type="button" (click)="checkEmail()">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div [ngClass]="success" role="alert" 
+                        *ngIf="personal_Info_Form.get('userName').touched">
+                                {{Message}}
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+
+
+
+            <!--Password-->
+            <div class="tab-pane fade" id="list-password">
+            <div class="card">
+                    <div class="card-header">
+                        <p class="card-title text-center">Edit Password</p>
+                    </div>
+                    <form [formGroup]="Password_Form" (ngSubmit)="Change_Password()">
+                    <div class="card-block container">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-lable">current Password</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="password" placeholder="Current"
+                                name="Current"
+                                formControlName="OLD"
+                                >
+                            </div>
+                        </div>
+    
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-lable">new password</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="password" placeholder="new password"
+                                name="new_password"
+                                formControlName="NEW"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                                <label class="col-sm-2 col-form-lable">conforming</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="password" placeholder="write it again"
+                                    name="conforming"
+                                    formControlName="Config"
+                                    >
+                                </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success offset-lg-5 col-lg-2 btn-block"
+                        >Change</button>
+
+                        <div [ngClass]="success" role="alert">
+                                {{Message}}
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="list-Deactivate">c</div>
+            <div class="tab-pane fade" id="list-settings">d</div>
+          </div>
+        </div>
+      </div>

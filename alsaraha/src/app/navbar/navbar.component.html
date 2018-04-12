@@ -1,7 +1,7 @@
 
 
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-    <a class="navbar-brand  mb-0 h1" href="#">Alsaraha</a>
+    <a class="navbar-brand  mb-0 h1" routerLink="/">Alsaraha</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,26 +9,35 @@
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav ml-auto">
 
+        
         <li class="nav-item">
-            <a class="nav-link" routerLink="user/profile"
+            <a class="nav-link" routerLink="/profile"
             *ngIf="service.ifLoggedIn()"
             >Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="user/register" 
+          <a class="nav-link" routerLinkActive="active" routerLink="/register" 
           *ngIf="!service.ifLoggedIn()"
           >Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="/user/login"
+            <a class="nav-link" routerLinkActive="active" routerLink="/login"
             *ngIf="!service.ifLoggedIn()"
             >Login</a>
         </li> 
         <li class="nav-item">
-            <a class="nav-link" >About Us</a>
+            <a class="nav-link" 
+               routerLinkActive="active" 
+               routerLink="/about">
+               About Us
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" >Contact Us</a>
+            <a class="nav-link"
+            routerLinkActive="active" 
+            routerLink="/contact">
+            Contact Us
+            </a>
         </li>
         <li class="nav-item">
           <a class="nav-link"

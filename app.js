@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 const config = require('./config/database');
 const cors = require('cors');
 const User = require('./models/User');
+
 //database 
 
 const server = require('http').createServer(app);
@@ -36,7 +37,10 @@ app.use(cors({
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname+'/alsaraha/dist'));
+
+
 app.use('/user',USER);
+
 // app.use('/test',test);
 app.get('/',(req,res)=>{
     res.sendfile(path.join(__dirname+'/alsaraha/dist/index.html'));

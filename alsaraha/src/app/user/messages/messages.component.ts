@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatServiceService } from '../../chat-service.service';
 import { ServiceService } from '../../service.service';
-import { Router } from '@angular/router';
+import { Router ,ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
@@ -13,32 +13,58 @@ export class MessagesComponent implements OnInit {
   constructor(
     private Chat:ChatServiceService , 
     private Service:ServiceService ,
-    private router:Router
+    private router:Router , 
+    private route:ActivatedRoute
   ) { }
   text_box = "";
-  userName ;
+  userName_Reciver ;
+  userNameSender =""; 
+  message:String;
+  success:String;
   ngOnInit() {
-    var name = window.location.href;
-    this.userName = name.slice(27);
+    this.userName_Reciver = this.route.snapshot.params['id'];
+  }
+
+
+  Check_Send_Recive()
+  {
+    if(this.Service.ifLoggedIn())
+    this.userNameSender = localStorage.getItem('userName');
+    else
+    this.userNameSender ="NO";
   }
 
   Send_message()
   {
+    this.Check_Send_Recive();
+    if(this.text_box!="")
+    {
     var data = {
-      userName:this.userName,
-      message:this.text_box
+      userName_Reciver:this.userName_Reciver,
+      message:this.text_box , 
+      userName_Sender:this.userNameSender
+
     }
     this.Chat.Send_message(data).subscribe((res=>{
       if(res.success)
       {
+        console.log(res);
+        this.message = "your message was sent";
+        this.success ="alert alert-success";
         setTimeout(()=>{
           this.router.navigate(['THX']);
-        },1000);
+        },2000);
       }
       else 
       {
-        console.log('fuck');
+        console.log('NOW');
       }
     }));    
+  }
+  else 
+  {
+    this.message ="write something";
+    this.success ="alert alert-danger";
+  }
   }
 }
