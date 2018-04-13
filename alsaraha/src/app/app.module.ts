@@ -20,11 +20,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { MessageReciveComponent } from './home/message-recive/message-recive.component';
 import { MessageSendComponent } from './home/message-send/message-send.component';
 import { FavorComponent } from './home/favor/favor.component'
-
+import { AuthGuard } from './Gard/Auth.gard';
+import { AuthGuardLogin } from './Gard/guardAuthLogin';
+import { ServiceService } from './service.service';
+import { ChatServiceService } from './chat-service.service';
 const Router_pages:Routes = [
   {
     path:'home',
     component:HomeComponent , 
+    canActivate: [AuthGuard],
     children:[
       {
         path:'messageRecive',
@@ -42,23 +46,28 @@ const Router_pages:Routes = [
   },
   {
     path:'register',
-    component:RegisterComponent
+    component:RegisterComponent,
+    canActivate:[AuthGuardLogin]
   },
   {
     path:'login',
-    component:LoginComponent
+    component:LoginComponent,
+    canActivate:[AuthGuardLogin]
   },
   {
     path:'USER',
-    component:UserComponent
+    component:UserComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'profile',
-    component:ProfileComponent
+    component:ProfileComponent,
+    canActivate: [AuthGuard],
   },
   {
     path:'message',
-    component:MessagesComponent
+    component:MessagesComponent,
+    canActivate: [AuthGuard],
   },
   {
     path:'user/:id',
@@ -110,7 +119,7 @@ const Router_pages:Routes = [
     RouterModule.forRoot(Router_pages)
     
   ],
-  providers: [],
+  providers: [AuthGuard , ServiceService, AuthGuardLogin , ChatServiceService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

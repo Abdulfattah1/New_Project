@@ -19,9 +19,10 @@ export class HomeComponent implements OnInit {
   
   userName;
   messages=[];
-
+  link:String; 
   ngOnInit() {
     this.userName = "";
+    this.link='Clcik here '
     }
 
     ifLoggedIn()

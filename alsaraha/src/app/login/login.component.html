@@ -22,6 +22,14 @@
         <button type="submit" class="btn btn-success btn-block">sign in</button>
       </div>
   </form>
-  <p *ngIf ="success">you are loged in</p>
-  <p *ngIf ="!success">you are not loged in</p>
+  
+  
+  <div class="card" *ngIf="success==1 || success==2">
+    <div class="card-header"> 
+      <p class="card-text" [ngClass]="success1">
+        {{message}}
+      </p>
+    </div>
+  </div>
+
 </section>

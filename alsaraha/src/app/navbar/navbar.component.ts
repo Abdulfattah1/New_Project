@@ -8,7 +8,7 @@ import { ServiceService} from '../service.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private service:ServiceService) { }
+  constructor(public service:ServiceService) { }
   
   ngOnInit() {
     

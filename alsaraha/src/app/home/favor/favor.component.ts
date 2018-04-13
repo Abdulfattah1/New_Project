@@ -9,10 +9,12 @@ import { ChatServiceService } from '../../chat-service.service';
 export class FavorComponent implements OnInit {
 
   message=[];
+  title:String;
   constructor(private Chat:ChatServiceService) { }
   ngOnInit() {
     this.Chat.getFavor().subscribe((res)=>{
       this.message  = res.favor;
+      this.title = "the messages that you saved";
     });
   }
 
