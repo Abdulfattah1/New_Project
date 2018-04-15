@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 //Router
+const Auth = require('./Routers/Auth')(router);
 const USER = require('./Routers/User')(router);
 // const test = require('./Routers/test')(router);
 const mongoose = require('mongoose');
@@ -34,25 +35,18 @@ app.use(cors({
     origin:'http://localhost:4200'
 }));
 //midlewaer
-app.use(bodyParser.urlencoded({extended: true}));
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname+'/public'));
 
 
-app.use('/user',USER);
-
-// app.use('/test',test);
-app.get('/',(req,res)=>{
-    res.sendfile(path.join(__dirname+'public/index.html'));
-});
+app.use("/user",Auth);
 
 app.get('*',(req,res)=>{
-    res.send('please try again');
+    res.sendfile(path.join('public/index.html'));
 });
 
-app.post('/good', (req, res) => {
-    console.log(res);
-});
 
 server.listen(port,(err)=>{
     if(err)

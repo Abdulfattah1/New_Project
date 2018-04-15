@@ -30,13 +30,14 @@ export class RegisterComponent implements OnInit {
   {
     console.log(this.singUp.value);
     var person_info = {
-      Email:this.singUp.value.Email,
-      Password:this.singUp.value.Password,
-      Password_Confirmation:this.singUp.value.Password_conform,
-      Username:this.singUp.value.Username,
-      Name:this.singUp.value.Name,
-      Birth_date:this.singUp.value.Birth_date,
-      Gender:this.singUp.value.Gender
+      email:this.singUp.value.Email,
+      passWord:this.singUp.value.Password,
+      passWord_config:this.singUp.value.Password_conform,
+      userName:this.singUp.value.Username,
+      name:this.singUp.value.Name,
+      brithDate:this.singUp.value.Birth_date,
+      gender:this.singUp.value.Gender,
+      country:this.singUp.value.Country
   };
     this.Service.register(person_info).subscribe((res)=>
     {
