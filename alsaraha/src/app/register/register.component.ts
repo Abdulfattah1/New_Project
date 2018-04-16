@@ -13,6 +13,8 @@ export class RegisterComponent implements OnInit {
   constructor(private Service:ServiceService , private router:Router) { }
   singUp:FormGroup;
   success:boolean;
+  message:String;
+  class:String;
   ngOnInit() {
     this.singUp = new FormGroup({
       'Email':new FormControl(null,[Validators.required , Validators.email]),
@@ -28,7 +30,6 @@ export class RegisterComponent implements OnInit {
 
   onSubmit()
   {
-    console.log(this.singUp.value);
     var person_info = {
       email:this.singUp.value.Email,
       passWord:this.singUp.value.Password,
@@ -41,13 +42,19 @@ export class RegisterComponent implements OnInit {
   };
     this.Service.register(person_info).subscribe((res)=>
     {
-      console.log(res);
+      
+      this.success = res.success;
+      console.log(this.success);
       if(!res.success)
       {
-        this.success = false;
+        this.class   = "alert alert-danger";
+        this.message = res.message;
       }
       else{
-        this.success = true;
+        
+        
+        this.class   = "alert alert-success";
+        this.message = res.message;
         setTimeout(()=>{
           this.router.navigate(['/login']);
         },2000);

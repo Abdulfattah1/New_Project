@@ -72,7 +72,38 @@ module.exports = (Router)=>{
                                            let User = new user(Person);
                                            User.save((err)=>{
                                                if(err)
-                                               res.json({success:false , message:err});
+                                               {
+                                                   if(err.code===11000)
+                                                   {
+                                                       res.json({success:false ,message:"Username or e-mail already exists"});
+                                                   }
+                                                   else 
+                                                   {
+                                                       if(err.errors)
+                                                       {
+                                                           if(err.errors.email)
+                                                           {
+                                                               res.json({success:false , message:err.errors.email.message});
+                                                           }
+                                                           else {
+                                                               if(err.errors.userName)
+                                                               {
+                                                                res.json({success:false , message:err.errors.userName.message});
+                                                               }
+                                                               else {
+                                                                   if(err.errors.passWord)
+                                                                   {
+                                                                    res.json({success:false , message:err.errors.passWord.message});
+                                                                   }
+                                                               }
+                                                           }
+                                                       }
+                                                       else 
+                                                       {
+                                                           res.json({success:false , message:err});
+                                                       }
+                                                   }
+                                               }
                                                else 
                                                res.json({success:true , message:"registered"});
                                            });
@@ -87,5 +118,22 @@ module.exports = (Router)=>{
         }
     });
 
+    Router.post('/logIn',(req,res)=>{
+        console.log(req.body);
+        if(!req.body.userName)
+        {
+            res.json({success:false , message:'you must provide a userName'});
+        }
+        else {
+            if(!req.body.passWord)
+            {
+                res.json({success:false , message:"you must provide a passWord"});
+            }
+            else 
+            {
+                jwt.sign({})
+            }
+        }
+    });
     return Router;
 }
