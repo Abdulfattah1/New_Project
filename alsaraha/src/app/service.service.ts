@@ -46,9 +46,16 @@ export class ServiceService {
 
 
   checkEmail(email)
-  {
-    return this.http.post(this.url+'user/checkEmail',email , this.option).map((res)=>res.json());
+  {    
+    return this.http.get(this.url+'user/checkEmail/' + email).map((res)=>res.json());
   }
+
+
+  checkUserName(userName)
+  {    
+    return this.http.get(this.url+'user/checkUserName/' + userName).map((res)=>res.json());
+  }
+
 
 
   finalChangeEmail(Email)

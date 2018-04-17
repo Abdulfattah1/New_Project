@@ -8,15 +8,33 @@
       <label  class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block">Email</label>
       <div class="col-xs-12 col-sm-6">
         <input type="text" class="form-control" placeholder="Email" id="Email" formControlName="Email"
+        [ngClass]="{
+          'has-error':(singUp.controls.Email.errors && singUp.controls.Email.dirty),
+          'has-success': (!singUp.controls.Email.errors)
+        }"
+        (blur)="checkEmail()"
         >
+        <ul class="help-block">
+          <li *ngIf="singUp.controls.Email.errors?.required && singUp.controls.Email.dirty">you must provide an email</li>
+          <li *ngIf="singUp.controls.Email.errors?.validateEmail && singUp.controls.Email.dirty">you must enter a valid E-mail</li>
+          <li *ngIf="message && singUp.controls.Email.dirty && !singUp.controls.Email.errors?.validateEmail">{{message}}</li>
+        </ul>
       </div>
-      <span  *ngIf="!singUp.get('Email').valid && singUp.get('Email').touched">Email is not valid</span>
     </div>
+
+
     <div class="form-group row">
       <label for="" class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block" >Password</label>
       <div class="col-sm-6">
         <input type="password" class="form-control" placeholder="Password" formControlName="Password"
+        [ngClass]="{
+          'has-error':(singUp.controls.Password.errors?.required && singUp.controls.Password.dirty),
+          'has-success':(!singUp.controls.Password.errors)
+        }"
         >
+        <ul class="help-block">
+            <li *ngIf="singUp.controls.Password.errors?.required && singUp.controls.Password.dirty">you must provide an Password</li>
+        </ul>
       </div>
     </div>
 
@@ -24,7 +42,16 @@
         <label for="" class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block" >Password Confirmation</label>
         <div class="col-sm-6">
           <input type="password" class="form-control" id="" placeholder="Password_conform" formControlName="Password_conform"
+          [ngClass]="{
+            'has-error':(singUp.controls.Password_conform.errors?.required && singUp.controls.Password_conform.dirty),
+            'has-success':(!singUp.controls.Password.errors)
+          }"
           >
+          <ul class="help-block">
+              <li *ngIf="singUp.controls.Password_conform.errors?.required && singUp.controls.Password_conform.dirty">you must provide an Password</li>
+              <li *ngIf="(singUp.errors?.matchingPasswords && singUp.controls.Password_conform.dirty)">don't match</li>
+              
+            </ul>
         </div>
       </div>
 
@@ -32,7 +59,16 @@
           <label for="" class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block" >Username</label>
           <div class="col-sm-6">
             <input type="text" class="form-control" id="" placeholder="Username" formControlName="Username"
+            [ngClass]="{
+              'has-error':(singUp.controls.Username.errors && singUp.controls.Username.dirty),
+              'has-success': (!singUp.controls.Username.errors)
+            }"
+            (blur)="checkUserName()"
             >
+            <ul class="help-block">
+              <p *ngIf="singUp.controls.Username.errors?.required && singUp.controls.Username.dirty">you must provide a username</p>
+              
+            </ul>
           </div>
         </div>
 
@@ -40,16 +76,29 @@
             <label for="" class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block" >Name</label>
             <div class="col-sm-6">
               <input type="text" class="form-control" id="" placeholder="Name" formControlName="Name"
+              [ngClass]="{
+                'has-error':(singUp.controls.Name.errors && singUp.controls.Name.dirty),
+                'has-success': (!singUp.controls.Name.errors)
+              }"
               >
+              <ul class="help-block">
+                  <li *ngIf="singUp.controls.Name.errors?.required && singUp.controls.Name.dirty">you must provide a Name</li>
+              </ul>
             </div>
           </div>
 
           <div class="form-group row">
               <label for="" class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block" >Birth date</label>
               <div class="col-sm-6">
-                <input type="date" class="form-control" id="" placeholder="Password Confirmation" formControlName="Birth_date"
-
+                <input type="date" class="form-control" id="" placeholder="Birth_date" formControlName="Birth_date"
+                [ngClass]="{
+                  'has-error':(singUp.controls.Birth_date.errors && singUp.controls.Birth_date.dirty),
+                  'has-success': (!singUp.controls.Birth_date.errors)
+                }"
                 >
+                <ul class="help-block">
+                    <li *ngIf="singUp.controls.Birth_date.errors?.required && singUp.controls.Birth_date.dirty">you must provide a Birth date</li>
+                  </ul>
               </div>
           </div>
 
@@ -74,7 +123,7 @@
               </div>
           </div>
           <div class="offset-lg-4 col-lg-6">
-          <button type="submit" class="btn btn-success btn-block">Register</button>
+          <button  type="submit" class="btn btn-success btn-block">Register</button>
          </div> 
         </form>
             <span [ngClass]="class" class="message">

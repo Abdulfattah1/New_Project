@@ -12,24 +12,48 @@ export class RegisterComponent implements OnInit {
 
   constructor(private Service:ServiceService , private router:Router) { }
   singUp:FormGroup;
-  success:boolean;
+  E_success:boolean;
   message:String;
   class:String;
+  message_U:String;
   ngOnInit() {
     this.singUp = new FormGroup({
-      'Email':new FormControl(null,[Validators.required , Validators.email]),
-      'Password':new FormControl(null,[Validators.required , Validators.minLength(6)]),
-      'Password_conform':new FormControl(null , Validators.required),
-      'Username':new FormControl(null,[Validators.required]),
-      'Name':new FormControl(null,[Validators.required]),
+      'Email':new FormControl(null,[
+        Validators.required ,
+        Validators.email , 
+        Validators.minLength(5),
+        Validators.maxLength(30),
+        this.validateEmail
+        ]),
+      'Password':new FormControl(null,[
+        Validators.required
+      ]),
+      'Password_conform':new FormControl(null , [
+        Validators.required
+      ]),
+      'Username':new FormControl(null,[
+        Validators.required , 
+        Validators.minLength(3) , 
+        Validators.maxLength(30) ,
+        this.validateUsername
+      ]),
+      'Name':new FormControl(null,[
+        Validators.required , 
+        Validators.minLength(3) , 
+        Validators.maxLength(20) 
+      ]),
       'Birth_date':new FormControl(null,[Validators.required]),
       'Gender':new FormControl(null , [Validators.required]),
       'Country':new FormControl(null , [Validators.required])
+    },{
+      validators:this.matchingPasswords('Password','Password_conform')
     });
   }
 
   onSubmit()
   {
+    console.log(this.singUp);
+    
     var person_info = {
       email:this.singUp.value.Email,
       passWord:this.singUp.value.Password,
@@ -42,9 +66,6 @@ export class RegisterComponent implements OnInit {
   };
     this.Service.register(person_info).subscribe((res)=>
     {
-      
-      this.success = res.success;
-      console.log(this.success);
       if(!res.success)
       {
         this.class   = "alert alert-danger";
@@ -61,5 +82,93 @@ export class RegisterComponent implements OnInit {
       }
     }
     ,(err)=>console.log(err));
+  }
+
+
+
+  checkEmail()
+  {
+    if(this.singUp.get('Email').value)
+    {
+    this.Service.checkEmail(this.singUp.get('Email').
+    value).subscribe((res)=>{
+
+      console.log(res);
+      
+      if(!res.success)
+      {
+        this.E_success = false;
+        this.message = res.message;
+      }
+      else {
+        this.E_success  = true;
+        this.message  = res.message;
+      }
+    });
+  }
+  }
+
+  checkUserName()
+  {
+    if(this.singUp.get('Username').value)
+    {
+    this.Service.checkUserName(this.singUp.get('Username').
+    value).subscribe((res)=>{
+
+      console.log(res);
+      
+      if(!res.success)
+      {
+        this.E_success = false;
+        this.message_U = res.message_U;
+      }
+      else {
+        this.E_success  = true;
+        this.message_U  = res.message_U;
+      }
+    });
+  }
+  }
+
+  validateEmail(controls) {
+    
+    const regExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    
+    if (regExp.test(controls.value)) {
+      return null;
+    } else {
+      return { 'validateEmail': true }
+    }
+  }
+
+  validateUsername(controls) {
+
+    const regExp = new RegExp(/^[a-zA-Z0-9]+$/);
+    if (regExp.test(controls.value)) {
+      return null;
+    } else {
+      return { 'validateUsername': true }
+    }
+  }
+
+  validatePassword(controls) {
+    const regExp = new RegExp(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])(?=.*?[\W]).{8,35}$/);
+    if (regExp.test(controls.value)) {
+      return null;
+    } else {
+      return { 'validatePassword': true }
+    }
+  }
+
+  matchingPasswords(Password,Password_conform)
+  {
+    return(group:FormGroup)=>{
+      if(group.controls[Password].value===group.controls[Password_conform].value)
+      return null;
+      else 
+      {
+        return {'matchingPasswords':true}
+      }
+    }
   }
 }

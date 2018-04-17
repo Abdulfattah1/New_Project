@@ -5,6 +5,10 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (Router)=>{
 
+
+    //////////////////
+   ///register router// 
+    /////////////////
     Router.post('/register',(req,res)=>{
         console.log(req.body);
         if(!req.body.email)
@@ -118,6 +122,65 @@ module.exports = (Router)=>{
         }
     });
 
+
+    //////////////////
+   ///check if user's email is available for registration// 
+    /////////////////
+    Router.get('/checkEmail/:email',(req,res)=>{
+        console.log(req.params );
+        if(!req.params.email)
+        {
+            res.json({success:false , message:"you must provide an email"});
+        }
+        else {
+            user.findOne({email:req.params .email},(err,user)=>{
+                if(err)
+                {
+                    res.json({success:false , message:err});
+                }
+                else 
+                {
+                    if(user)
+                    {
+                        res.json({success:false , message:"E-mail is already taken"});
+                    }
+                    else {
+                        res.json({success:false , message:"E-mail is available"});
+                    }
+                }
+            });
+        }
+    });
+
+
+    //////////////////
+     ///check if user's username is available for registration// 
+    /////////////////
+Router.get('/checkUserName/:userName',(req,res)=>{
+        if(!req.params.userName)
+        {
+            res.json({success:false , message:"you must provide an userName"});
+        }
+        else {
+            user.findOne({userName:req.params.userName},(err,user)=>{
+                if(err)
+                {
+                    res.json({success:false , message:err});
+                }
+                else 
+                {
+                    if(user)
+                    {
+                        res.json({success:false , message:"userName is already taken"});
+                    }
+                    else {
+                        res.json({success:false , message:"userName is available"});
+                    }
+                }
+            });
+        }
+    });
+    /*
     Router.post('/logIn',(req,res)=>{
         console.log(req.body);
         if(!req.body.userName)
@@ -131,9 +194,10 @@ module.exports = (Router)=>{
             }
             else 
             {
-                jwt.sign({})
+
             }
         }
     });
+    */
     return Router;
 }
