@@ -5,7 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 //Router
 const Auth = require('./Routers/Auth')(router);
-const USER = require('./Routers/User')(router);
+const messages = require('./Routers/messages')(router);
 // const test = require('./Routers/test')(router);
 const mongoose = require('mongoose');
 const config = require('./config/database');
@@ -41,7 +41,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname+'/public'));
 
 
+
+
 app.use("/user",Auth);
+app.use("/messages",messages);
+
+
 
 app.get('*',(req,res)=>{
     res.sendfile(path.join('public/index.html'));

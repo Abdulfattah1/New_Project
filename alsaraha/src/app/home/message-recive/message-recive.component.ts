@@ -15,17 +15,20 @@ export class MessageReciveComponent implements OnInit {
   ngOnInit() {
      this.title = "the messages that you have recived";
      this.Chat.getReciveMessage().subscribe((res)=>{
-       this.message = res.message_Recive;
+       if(res.success)
+       {
+       this.message = res.message;
        console.log(this.message);
+       }
      });    
   }
-  delete(item , Id)
+  DeleteMessage(item , Id)
   {
     if(window.confirm('are you sure'))
     {
     this.message.splice(Id, 1);
     var Type = "Recive";
-    this.Chat.Delete(item,Type).subscribe((data)=>{
+    this.Chat.DeleteMessage(item,Type).subscribe((data)=>{
       console.log(data);
     });
     }
@@ -35,7 +38,7 @@ export class MessageReciveComponent implements OnInit {
   {
     console.log(item);
     var MM = {
-      message:item
+      message:item.content
     }
     this.Chat.favor(MM).subscribe((res)=>{
       console.log(res);

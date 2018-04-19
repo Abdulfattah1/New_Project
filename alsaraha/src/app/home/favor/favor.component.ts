@@ -13,20 +13,24 @@ export class FavorComponent implements OnInit {
   constructor(private Chat:ChatServiceService) { }
   ngOnInit() {
     this.Chat.getFavor().subscribe((res)=>{
-      this.message  = res.favor;
+      if(res.success)
+      {
+      this.message  = res.message;
       this.title = "the messages that you saved";
+      }
     });
   }
 
-  Remove(item , id)
+  DeleteMessage(item , id)
   {
-    var Rmessage = {
-      message:item
-    }
-    this.message.splice(id,1);
-    this.Chat.removeFavorMessage(Rmessage).subscribe((res)=>{
-      console.log(res);
+    if(window.confirm('are you sure'))
+    {
+    this.message.splice(id, 1);
+    var Type = "Favor";
+    this.Chat.DeleteMessage(item,Type).subscribe((data)=>{
+      console.log(data);
     });
+    }
   }
 
 }

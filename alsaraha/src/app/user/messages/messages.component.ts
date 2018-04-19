@@ -26,45 +26,50 @@ export class MessagesComponent implements OnInit {
   }
 
 
-  Check_Send_Recive()
-  {
-    if(this.Service.ifLoggedIn())
-    this.userNameSender = localStorage.getItem('userName');
-    else
-    this.userNameSender ="NO";
-  }
 
+  /////you have to learn the abservable things
   Send_message()
   {
-    this.Check_Send_Recive();
     if(this.text_box!="")
     {
-    var data = {
-      userName_Reciver:this.userName_Reciver,
-      message:this.text_box , 
-      userName_Sender:this.userNameSender
-
+      const dataMessage = {
+        content:this.text_box,
+        userName_Reciver:this.userName_Reciver
+      }
+      this.Chat.Send_message(dataMessage).
+      subscribe((res)=>{
+        if(res.success)
+        {
+          this.success = "alert alert-success";
+          this.message = res.message;
+          setTimeout(() => {
+            this.router.navigate(['THX']);
+          }, 2000);
+          
+        }        
+        else {
+          this.success = "alert alert-danger";
+          this.message = res.message;
+        }
+      });
+      if(localStorage.getItem('token'))
+      {
+      this.Chat.saveMessageSend(dataMessage)
+      .subscribe((res)=>{
+        if(res.success)
+        {
+          console.log('success savaing ');
+        }
+        else {
+          console.log('not saving');
+        }
+      });
+      }
     }
-    this.Chat.Send_message(data).subscribe((res=>{
-      if(res.success)
-      {
-        console.log(res);
-        this.message = "your message was sent";
-        this.success ="alert alert-success";
-        setTimeout(()=>{
-          this.router.navigate(['THX']);
-        },2000);
-      }
-      else 
-      {
-        console.log('NOW');
-      }
-    }));    
-  }
-  else 
-  {
-    this.message ="write something";
-    this.success ="alert alert-danger";
-  }
+    else 
+    {
+    this.success = "alert alert-danger";
+    this.message = "you have to write a message";
+    }
   }
 }

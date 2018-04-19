@@ -144,19 +144,19 @@ var userSchema  = new Schema({
     //the messages  that the user has recived
     messageRecived:[{
         content:{type:String , require:true},
-        date:{type:Date , require:true}
+        date:{type:Date , default: Date.now() }
     }],
 
     //the messages  that the user has sent
     messageSent:[{
         content:{type:String , require:true},
-        date:{type:Date , require:true}
+        date:{type:Date , default: Date.now()}
     }],
 
     //the messages that the user has marked them as a faforite one
     favoriteMessage:[{
         content:{type:String , require:true},
-        date:{type:Date , require:true}
+        date:{type:Date , default: Date.now()}
     }]
 });
 module.exports = mongoose.model("user",userSchema);

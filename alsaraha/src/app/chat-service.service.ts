@@ -12,13 +12,22 @@ export class ChatServiceService {
     
   public message_Recived=[];
   public message_Sent=[];
+  url = "";
 
+  //send message and save it in the recived message's field
   Send_message(data)
   {
-    return this.http.post('/user/message',data).map((res)=>res.json());
+    return this.http.post(this.url+'/messages/sendMessage/'+data.userName_Reciver,data).map((res)=>res.json());
   }
 
-  Delete(Item , Type)
+  ////send message and save it in the sent message's field
+  saveMessageSend(data)
+  {
+    this.service.createHeader();
+    return this.http.post(this.url+'/messages/saveMessageSend',data,this.service.option).map((res)=>res.json());
+  }
+
+  DeleteMessage(Item , Type)
   {
     this.service.createHeader();
     var messages = {
@@ -26,39 +35,44 @@ export class ChatServiceService {
       message_Item:Item
     }
     console.log(messages);
-    return this.http.post("/user/Delete",messages,this.service.option).map((res)=>res.json());
-  }
-  
-
-  getReciveMessage()
-  {
-    this.service.createHeader();
-    return this.http.get('/user/getReciveMessage',this.service.option).map((res=>res.json()));
-  }
-  getSendMessage()
-  {
-    this.service.createHeader();
-    return this.http.get('/user/getSendMessage',this.service.option).map((res=>res.json()));
+    return this.http.post(this.url+'/messages/DeleteMessage',messages,this.service.option).map((res)=>res.json());
   }
 
+  //Get the messages that the user recived
+getSendMessage()
+  {
+    this.service.createHeader();
+    return this.http.get(this.url+'/messages/getSentMessage',this.service.option).map((res=>res.json()));
+  }
+
+  //Get the messages that the user sent
+getReciveMessage()
+  {
+    this.service.createHeader();
+    return this.http.get(this.url+'/messages/getReciveMessage',this.service.option).map((res=>res.json()));
+  }
+
+  //Get the messages that the user liked
   favor(message)
   {
     console.log(message.message);
     
     this.service.createHeader();
-    return this.http.post("/user/addFavor",message,this.service.option).
+    return this.http.post(this.url+'/messages/addFavor',message,this.service.option).
     map((res)=>res.json());
   }
 
   getFavor()
   {
     this.service.createHeader();
-    return this.http.get('/user/getFavor',this.service.option).map((res=>res.json()));
+    return this.http.get('/messages/getFavorMessage',this.service.option).map((res=>res.json()));
   }
 
   removeFavorMessage(message)
   {
     this.service.createHeader();
-    return this.http.post('/user/removeFavorMessage',message,this.service.option).map((res=>res.json()));
+    return this.http.post('/messages/removeFavorMessage',message,this.service.option).map((res=>res.json()));
   }
+
+  
 }

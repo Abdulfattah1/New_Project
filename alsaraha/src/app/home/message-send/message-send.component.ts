@@ -14,18 +14,21 @@ export class MessageSendComponent implements OnInit {
   ngOnInit() {
     this.title = "messages that you have sent";
     this.Chat.getSendMessage().subscribe((res)=>{
-      this.message = res.message_Send;
-      console.log(this.message);
+      if(res.success)
+      {
+        this.message = res.message;
+        console.log(res.message);
+      }
     });
   }
 
-  delete(item , Id)
+  DeleteMessage(item , Id)
   {
     if(window.confirm('are you sure'))
     {
     this.message.splice(Id, 1);
     var Type = "Send";
-    this.Chat.Delete(item,Type).subscribe((data)=>{
+    this.Chat.DeleteMessage(item,Type).subscribe((data)=>{
       console.log(data);
     });
     

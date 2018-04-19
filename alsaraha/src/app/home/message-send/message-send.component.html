@@ -8,11 +8,11 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center"
                     *ngFor="let item of message; let i = index">
                     <div class="card-block">
-                        <p class="card-text">{{item.context}}</p>
+                        <p class="card-text">{{item.content}}</p>
                         <p class="card-text"><small class="text-muted">{{item.date}}</small></p>
                     </div>
                         <span class="badge badge-pill" >
-                            <img src="../../../assets/circle-x-2x.png" (click)="delete(item ,i)" id="Badge1">
+                            <img src="../../../assets/circle-x-2x.png" (click)="DeleteMessage(item ,i)" id="Badge1">
                         </span>
                     </li>
                

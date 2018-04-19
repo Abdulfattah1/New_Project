@@ -120,11 +120,11 @@ export class RegisterComponent implements OnInit {
       if(!res.success)
       {
         this.E_success = false;
-        this.message_U = res.message_U;
+        this.message_U = res.message;
       }
       else {
         this.E_success  = true;
-        this.message_U  = res.message_U;
+        this.message_U  = res.message;
       }
     });
   }

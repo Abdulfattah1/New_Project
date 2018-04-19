@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from '../../service.service';
-import { FormGroup , FormControl } from '@angular/forms';
+import { FormGroup , FormControl ,Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -17,32 +18,56 @@ export class ProfileComponent implements OnInit {
   Password_Form:FormGroup;
   Message;
 
-  constructor(private service:ServiceService) { }
+  messageUsername;
+  classUsername;
+
+  messageEmail;
+  classEmail;
+
+  messagePassword;
+  classPassword;
+
+  classDeactive;
+  messageDeactive;
+  constructor(
+    public service:ServiceService , 
+    private Router:Router
+  ) { }
   
   Person={
     userName:'',
-    Email:''
+    email:''
   }
   oldUserName;
   oldEmail;
   oldPassword;
   ngOnInit() {
-    this.service.profile().subscribe((res)=>{
+    this.service.getProfile().subscribe((res)=>{
       console.log(res);
       
       this.Person = { 
-        userName:res.user.Username,
-        Email:res.user.Email
+        userName:res.user.userName,
+        email:res.user.email
       }
 
-      this.oldUserName=res.user.Username;
-      this.oldEmail=res.user.Email;
-      this.oldPassword = res.user.Password;
+      this.oldUserName=res.user.userName;
+      this.oldEmail=res.user.email;
+      this.oldPassword = res.user.PassWord;
     });
 
     this.personal_Info_Form = new FormGroup({
-      userName:new FormControl(null),
-      email:new FormControl(null)
+      userName:new FormControl(null,[
+        Validators.required ,
+        Validators.minLength(3),
+        Validators.maxLength(20)
+      ]),
+      email:new FormControl(null,[
+        Validators.required ,
+        Validators.email , 
+        Validators.minLength(5),
+        Validators.maxLength(30),
+        this.validateEmail
+        ]),
     });
 
     this.Password_Form = new FormGroup({
@@ -52,58 +77,87 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  changeUserName()
+  //check if this username is evaliable
+
+  checkUserName()
   {
-    if(this.Person.userName!=this.oldUserName)
-    {
-      if(window.confirm("are you sure"))
+    if(this.Person.userName!="")
+  {
+    this.service.checkUserName(this.Person.userName).subscribe((res)=>{
+      if(res.success)
       {
-        this.service.finalChangeUserName(this.Person).
+        this.classUsername = "alert alert-success";
+        this.messageUsername = res.message;
+      }
+      else {
+        this.classUsername = "alert alert-danger";
+        this.messageUsername = res.message;
+      }
+    });
+  }
+  }
+
+
+  checkEmail()
+  {
+    if(this.Person.email!="")
+    {
+    this.service.checkEmail(this.Person.email).subscribe((res)=>{
+      if(res.success)
+      {
+        this.classEmail = "alert alert-success";
+        this.messageEmail = res.message;
+      }
+      else {
+        this.classEmail = "alert alert-danger";
+        this.messageEmail = res.message;
+      }
+    });
+  }
+  }
+
+
+  ChangeUsername()
+  {
+    if(window.confirm('are you sure'))
+    {
+        this.service.ChangeUsername(this.Person).
         subscribe((res)=>{
           if(res.success)
           {
            localStorage.setItem('userName',this.Person.userName);
-           this.Message = "username has changed"
-           this.success = "alert alert-success";
+           this.classUsername = "alert alert-success";
+           this.messageUsername = res.message;
           }
           else 
           {
-            this.Message = "try another username"
-           this.success = "alert alert-danger";
+            this.classUsername = "alert alert-danger";
+            this.messageUsername = res.message; 
           }
         });
       }
-    }
-    else{
-      this.success = "alert alert-dark";
-    }
   }
 
-  checkEmail()
+
+  ChangeEmail()
   {
-    if(this.Person.Email!=this.oldEmail)
+    if(this.Person.email!=this.oldEmail)
     {
-      if(this.Person.Email!=this.oldEmail)
-      {
-        if(window.confirm("are you sure"))
-        {
-          this.service.finalChangeEmail(this.Person).
-          subscribe((res)=>{
-            if(res.success)
-            {
-             this.Message = "Email has changed"
-             this.success = "alert alert-success";
-            }
-            else 
-            {
-            this.Message = "try another One"
-            this.success = "alert alert-danger";
-            }
-          });
-        }
-      }
-      else {
-        this.success = "alert alert-dark";
+      if(window.confirm('are you sure'))
+      {        
+        this.service.ChangeEmail(this.Person).subscribe((res)=>{
+          console.log(res);
+          
+          if(res.success)
+          {
+            this.classEmail = "alert alert-success";
+            this.messageEmail = res.message;
+          }
+          else {
+            this.classEmail = "alert alert-danger";
+            this.messageEmail = res.message;
+          }
+        });
       }
     }
   }
@@ -117,8 +171,6 @@ export class ProfileComponent implements OnInit {
   Change_Password()
   {
     console.log(this.Password_Form);
-    if(this.oldPassword==this.Password_Form.get('OLD').value)
-    {
       console.log(this.Password_Form.get('NEW').value);
       console.log(this.Password_Form.get('Config').value);
       var one = this.Password_Form.get('NEW').value;
@@ -126,24 +178,66 @@ export class ProfileComponent implements OnInit {
       if(one==two)
       {
         var Password = {
-         Password:this.Password_Form.get('NEW').value
+         passWord:this.Password_Form.get('NEW').value
         }
         this.service.Change_Password(Password).
         subscribe((res)=>{
           if(res.success)
           {
-            this.Message = "you have changed the password";
-            this.success = "alert alert-success";
+            this.classPassword = 'alert alert-success';
+            this.messagePassword = res.message;
           }
           else{
-            this.Message = "there is somethimg went worng";
-            this.success = "alert alert-danger";
+            this.classPassword = 'alert alert-danger';
+            this.messagePassword = res.message;
           }
-          
-          console.log(res);
-          
         });
       }
-    }    
   }
+
+
+  validateEmail(controls) {
+    
+    const regExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    
+    if (regExp.test(controls.value)) {
+      return null;
+    } else {
+      return { 'validateEmail': true }
+    }
+  }
+
+
+
+
+  deactivate()
+  {
+    const promp = window.prompt('enter you password');
+    
+    if(promp!=null)
+    {
+      console.log(typeof(Number(promp)));
+      var config={
+        passWord:Number(promp)
+      };
+      this.service.deactivate(config).subscribe((res)=>{
+        
+        if(res.success)
+        {
+          this.classDeactive = "alert alert-success";
+          this.messageDeactive = res.message;
+          setTimeout(() => {
+            localStorage.removeItem('userName');
+            localStorage.removeItem('token');
+            this.Router.navigate(['/register']);
+          }, 5000);
+        }
+        else {
+          this.classDeactive = "alert alert-danger";
+          this.messageDeactive = res.message;
+        }
+      });
+    }
+  }
+
 }

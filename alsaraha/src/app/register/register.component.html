@@ -67,7 +67,7 @@
             >
             <ul class="help-block">
               <p *ngIf="singUp.controls.Username.errors?.required && singUp.controls.Username.dirty">you must provide a username</p>
-              
+              <li *ngIf="message_U && singUp.controls.Username.dirty">{{message_U}}</li>
             </ul>
           </div>
         </div>

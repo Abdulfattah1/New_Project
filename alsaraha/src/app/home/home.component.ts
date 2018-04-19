@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   link:String; 
   ngOnInit() {
     this.userName = "";
-    this.link='Clcik here '
+    this.link='Clcik here '    
     }
 
     ifLoggedIn()

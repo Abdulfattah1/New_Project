@@ -45,8 +45,8 @@ export class LoginComponent implements OnInit {
   {
 
     var singInObject = {
-      Username:this.singInForm.value.Username,
-      Password:this.singInForm.value.Password
+      userName:this.singInForm.value.Username,
+      passWord:this.singInForm.value.Password
     }
     this.service.singIn(singInObject).subscribe(
       (data)=>{
@@ -55,9 +55,9 @@ export class LoginComponent implements OnInit {
        {
         this.success = 1;
         this.success1= "alert alert-success";
-        this.message = "you are loged in";
+        this.message = data.message;
         localStorage.setItem('token' , data.token);
-        localStorage.setItem('userName',data.userName);
+        localStorage.setItem('userName',data.user.userName);        
         this.service.setUserName(data.userName);
         setTimeout(()=>{
           this.router.navigate(['/home']);
@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
       {
         this.success = 2;
         this.success1= "alert alert-danger";
-        this.message = "Try again";
+        this.message =data.message;
       }
       },
       (err)=>console.log(err));
