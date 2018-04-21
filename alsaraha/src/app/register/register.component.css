@@ -3,6 +3,21 @@ input.ng-touched.ng-invalid
     border:1px solid red;
 }
 
-.message
+
+
+.card-block
 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.card-footer
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.MARGIN
+{
+    margin:10px;
 }

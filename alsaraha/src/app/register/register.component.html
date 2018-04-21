@@ -1,8 +1,9 @@
-<div class="container">
 
-<div class="container">
-<h3 class="text-center">Register</h3>
-
+<div class="card">
+  <div class="card-header">
+   <h4 class="text-center card-title">Register</h4>
+ </div>
+ <div class="card-block container">
 <form [formGroup]="singUp" (ngSubmit)="onSubmit()">
     <div class="form-group row">
       <label  class="offset-lg-2 col-sm-2 col-form-label 	d-none d-sm-block">Email</label>
@@ -14,11 +15,14 @@
         }"
         (blur)="checkEmail()"
         >
-        <ul class="help-block">
-          <li *ngIf="singUp.controls.Email.errors?.required && singUp.controls.Email.dirty">you must provide an email</li>
-          <li *ngIf="singUp.controls.Email.errors?.validateEmail && singUp.controls.Email.dirty">you must enter a valid E-mail</li>
-          <li *ngIf="message && singUp.controls.Email.dirty && !singUp.controls.Email.errors?.validateEmail">{{message}}</li>
-        </ul>
+        <div class="help-block MARGIN">
+          <h6 *ngIf="singUp.controls.Email.errors?.required && singUp.controls.Email.dirty"
+          class="alert alert-danger">you must provide an email</h6>
+          <h6 *ngIf="singUp.controls.Email.errors?.validateEmail && singUp.controls.Email.dirty"
+          class="alert alert-danger">you must enter a valid E-mail</h6>
+          <h6 *ngIf="message && singUp.controls.Email.dirty && !singUp.controls.Email.errors?.validateEmail"
+          [ngClass]="E_success">{{message}}</h6>
+         </div>
       </div>
     </div>
 
@@ -32,9 +36,11 @@
           'has-success':(!singUp.controls.Password.errors)
         }"
         >
-        <ul class="help-block">
-            <li *ngIf="singUp.controls.Password.errors?.required && singUp.controls.Password.dirty">you must provide an Password</li>
-        </ul>
+        <div class="help-block MARGIN">
+            <h6 *ngIf="singUp.controls.Password.errors?.required && singUp.controls.Password.dirty"
+            class="alert alert-danger"
+            >you must provide an Password</h6>
+        </div>
       </div>
     </div>
 
@@ -47,11 +53,12 @@
             'has-success':(!singUp.controls.Password.errors)
           }"
           >
-          <ul class="help-block">
-              <li *ngIf="singUp.controls.Password_conform.errors?.required && singUp.controls.Password_conform.dirty">you must provide an Password</li>
-              <li *ngIf="(singUp.errors?.matchingPasswords && singUp.controls.Password_conform.dirty)">don't match</li>
-              
-            </ul>
+          <div class="help-block MARGIN">
+              <h6 *ngIf="singUp.controls.Password_conform.errors?.required && singUp.controls.Password_conform.dirty"
+              class="alert alert-danger">you must provide an Password</h6>
+              <h6 *ngIf="(singUp.errors?.matchingPasswords && singUp.controls.Password_conform.dirty) && !(singUp.controls.Password_conform.errors?.required && singUp.controls.Password_conform.dirty)"
+              class="alert alert-danger">don't match</h6>
+          </div>
         </div>
       </div>
 
@@ -65,10 +72,15 @@
             }"
             (blur)="checkUserName()"
             >
-            <ul class="help-block">
-              <p *ngIf="singUp.controls.Username.errors?.required && singUp.controls.Username.dirty">you must provide a username</p>
-              <li *ngIf="message_U && singUp.controls.Username.dirty">{{message_U}}</li>
-            </ul>
+            <div class="help-block MARGIN">
+              <h6 *ngIf="singUp.controls.Username.errors?.required && singUp.controls.Username.dirty"
+              class="alert alert-danger">you must provide a username</h6>
+              <h6 *ngIf="message_U && singUp.controls.Username.dirty && !(singUp.controls.Username.errors?.required) && !(singUp.controls.Username.errors?.minlength) && !(singUp.controls.Username.errors?.maxlength)"
+              [ngClass]="U_success">{{message_U}}</h6>
+              
+              <h6 *ngIf="singUp.controls.Username.errors?.minlength && singUp.controls.Username.dirty"
+              class="alert alert-danger">should be more than 3 letters and less than 30 </h6>
+            </div>
           </div>
         </div>
 
@@ -81,9 +93,10 @@
                 'has-success': (!singUp.controls.Name.errors)
               }"
               >
-              <ul class="help-block">
-                  <li *ngIf="singUp.controls.Name.errors?.required && singUp.controls.Name.dirty">you must provide a Name</li>
-              </ul>
+              <div class="help-block MARGIN">
+                  <h6 *ngIf="singUp.controls.Name.errors?.required && singUp.controls.Name.dirty"
+                  class="alert alert-danger">you must provide a Name</h6>
+              </div>
             </div>
           </div>
 
@@ -96,9 +109,10 @@
                   'has-success': (!singUp.controls.Birth_date.errors)
                 }"
                 >
-                <ul class="help-block">
-                    <li *ngIf="singUp.controls.Birth_date.errors?.required && singUp.controls.Birth_date.dirty">you must provide a Birth date</li>
-                  </ul>
+                <div class="help-block MARGIN">
+                    <h6 *ngIf="singUp.controls.Birth_date.errors?.required && singUp.controls.Birth_date.dirty"
+                    class="alert alert-danger">you must provide a Birth date</h6>
+                </div>
               </div>
           </div>
 
@@ -126,9 +140,11 @@
           <button  type="submit" class="btn btn-success btn-block">Register</button>
          </div> 
         </form>
-            <span [ngClass]="class" class="message">
-              {{message}}
-            </span>
         </div>
 
-</div>
+        <div class="card-footer">
+          <h6 [ngClass]="class" class="text-center">
+            {{message}}
+          </h6>
+        </div>
+        </div>

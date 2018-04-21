@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       'Password': new FormControl(null)
     });
 
-    console.log(this.Auth.redirectUrl);
+    //console.log(this.Auth.redirectUrl);
   }
 
   
@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
     }
     this.service.singIn(singInObject).subscribe(
       (data)=>{
-        console.log(data);
        if(data.success)
        {
         this.success = 1;

@@ -302,6 +302,10 @@ Router.get('/checkUserName/:userName',(req,res)=>{
         });
     }
 });
+
+
+
+
     /* ================================================
              Changing user's password
   ================================================ */
@@ -311,10 +315,11 @@ Router.post('/changePassword',verifyToken,(req,res)=>{
         res.json({success:false , message:"you must provide a password"});
     }
     else {
-    user.update({_id:req.decoded.user.id},{passWord:req.body.PassWord},(err,data)=>{
+    user.update({_id:req.decoded.user._id},{passWord:req.body.PassWord},(err,data)=>{
         if(err)
         res.json({success:false , message:err});
         else{
+            console.log(data);
             res.json({success:true , message:'password Changed!'});
         }
     });

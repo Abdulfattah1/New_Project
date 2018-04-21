@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   link:String; 
   ngOnInit() {
     this.userName = "";
-    this.link='Clcik here '    
+    this.link="";   
     }
 
     ifLoggedIn()
@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
       if(localStorage.getItem('userName'))
       {
         this.userName = localStorage.getItem('userName');
+        this.link = "https://stark-dusk-63708.herokuapp.com/user/"+this.userName;
         return true;
       }
       this.userName="";

@@ -1,4 +1,12 @@
 <section class="login">
+  
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title text-center">
+        Login
+      </h4>
+    </div>
+    <div class="card-block">
   <form class="container" [formGroup]="singInForm" (ngSubmit)="onSubmit()">
     <div class="form-group row">
       <label class="offset-sm-2 col-sm-2 col-form-label">Username</label>
@@ -22,14 +30,17 @@
         <button type="submit" class="btn btn-success btn-block">sign in</button>
       </div>
   </form>
-  
-  
-  <div class="card" *ngIf="success==1 || success==2">
-    <div class="card-header"> 
+   </div>
+
+   <div class="card-footer text-center" *ngIf="success==1 || success==2"> 
       <p class="card-text" [ngClass]="success1">
         {{message}}
       </p>
-    </div>
   </div>
+
+</div>
+  
+
+
 
 </section>

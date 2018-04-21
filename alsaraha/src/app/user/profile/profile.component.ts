@@ -59,13 +59,13 @@ export class ProfileComponent implements OnInit {
       userName:new FormControl(null,[
         Validators.required ,
         Validators.minLength(3),
-        Validators.maxLength(20)
+        Validators.maxLength(50)
       ]),
       email:new FormControl(null,[
         Validators.required ,
         Validators.email , 
         Validators.minLength(5),
-        Validators.maxLength(30),
+        Validators.maxLength(50),
         this.validateEmail
         ]),
     });

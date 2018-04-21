@@ -28,7 +28,7 @@ export class FavorComponent implements OnInit {
     this.message.splice(id, 1);
     var Type = "Favor";
     this.Chat.DeleteMessage(item,Type).subscribe((data)=>{
-      console.log(data);
+      //console.log(data);
     });
     }
   }

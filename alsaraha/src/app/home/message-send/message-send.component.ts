@@ -17,7 +17,7 @@ export class MessageSendComponent implements OnInit {
       if(res.success)
       {
         this.message = res.message;
-        console.log(res.message);
+        //console.log(res.message);
       }
     });
   }
@@ -29,7 +29,7 @@ export class MessageSendComponent implements OnInit {
     this.message.splice(Id, 1);
     var Type = "Send";
     this.Chat.DeleteMessage(item,Type).subscribe((data)=>{
-      console.log(data);
+      //console.log(data);
     });
     
     }

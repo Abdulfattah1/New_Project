@@ -12,7 +12,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(private Service:ServiceService , private router:Router) { }
   singUp:FormGroup;
-  E_success:boolean;
+  E_success:String;
+  U_success:String;
   message:String;
   class:String;
   message_U:String;
@@ -52,7 +53,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit()
   {
-    console.log(this.singUp);
+    //console.log(this.singUp);
     
     var person_info = {
       email:this.singUp.value.Email,
@@ -93,15 +94,15 @@ export class RegisterComponent implements OnInit {
     this.Service.checkEmail(this.singUp.get('Email').
     value).subscribe((res)=>{
 
-      console.log(res);
+      //console.log(res);
       
       if(!res.success)
       {
-        this.E_success = false;
+        this.E_success  = 'alert alert-danger';
         this.message = res.message;
       }
       else {
-        this.E_success  = true;
+        this.E_success = 'alert alert-success';
         this.message  = res.message;
       }
     });
@@ -115,15 +116,15 @@ export class RegisterComponent implements OnInit {
     this.Service.checkUserName(this.singUp.get('Username').
     value).subscribe((res)=>{
 
-      console.log(res);
+      //console.log(res);
       
       if(!res.success)
       {
-        this.E_success = false;
+        this.U_success = 'alert alert-danger';
         this.message_U = res.message;
       }
       else {
-        this.E_success  = true;
+        this.U_success  = 'alert alert-success';
         this.message_U  = res.message;
       }
     });

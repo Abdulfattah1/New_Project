@@ -18,7 +18,7 @@ export class MessageReciveComponent implements OnInit {
        if(res.success)
        {
        this.message = res.message;
-       console.log(this.message);
+       //console.log(this.message);
        }
      });    
   }
@@ -29,19 +29,19 @@ export class MessageReciveComponent implements OnInit {
     this.message.splice(Id, 1);
     var Type = "Recive";
     this.Chat.DeleteMessage(item,Type).subscribe((data)=>{
-      console.log(data);
+      //console.log(data);
     });
     }
   }
 
   favor(item)
   {
-    console.log(item);
+    //console.log(item);
     var MM = {
       message:item.content
     }
     this.Chat.favor(MM).subscribe((res)=>{
-      console.log(res);
+      //console.log(res);
     });
   }
 
