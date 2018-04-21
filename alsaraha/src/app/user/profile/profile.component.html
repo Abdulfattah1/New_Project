@@ -23,7 +23,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-lable">username</label>
                             <div class="col-sm-6 col-xs-12">
-                                <input class="form-control" type="text" placeholder="Username"
+                                <input class="form-control form-group" type="text" placeholder="Username"
                                 name="userName"
                                 [(ngModel)]="Person.userName"
                                 formControlName="userName"
@@ -31,7 +31,8 @@
                                 >
                             </div>
                             <div class="col-sm-2 col-xs-12">
-                                <button class="btn btn-default" type="button" (click)="ChangeUsername()">Edit</button>
+                                <button [disabled]="personal_Info_Form.controls.userName.errors || !success_Username"
+                                 class="btn btn-default btn-block" type="button" (click)="ChangeUsername()">Edit</button>
                             </div>
                         </div>
                         <div class="offset-sm-3 col-sm-4 alert-block">
@@ -48,16 +49,16 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-lable">Email</label>
                             <div class="col-sm-6">
-                                <input class="form-control" type="text" placeholder="Email"
+                                <input class="form-control form-group" type="text" placeholder="Email"
                                 [(ngModel)]="Person.email"
                                 name="email"
                                 formControlName="email"
                                 (blur)="checkEmail()"
                                 >
                             </div>
-                            <div class="col-sm-2 col-xs-12">
-                                <button class="btn btn-default" type="button" (click)="ChangeEmail()" 
-                                [disabled]="personal_Info_Form.controls.email.errors"
+                            <div class="col-sm-2 offset-xs-4 col-xs-12 ">
+                                <button class="btn btn-default btn-block" type="button" (click)="ChangeEmail()" 
+                                [disabled]="personal_Info_Form.controls.email.errors || !success_Email"
                                 >Edit</button>
                             </div>
                         </div>

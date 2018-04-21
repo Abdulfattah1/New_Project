@@ -20,9 +20,13 @@ export class ProfileComponent implements OnInit {
 
   messageUsername;
   classUsername;
+  success_Username:boolean;
+
 
   messageEmail;
   classEmail;
+  success_Email:boolean;
+
 
   messagePassword;
   classPassword;
@@ -86,10 +90,12 @@ export class ProfileComponent implements OnInit {
     this.service.checkUserName(this.Person.userName).subscribe((res)=>{
       if(res.success)
       {
+        this.success_Username = true;
         this.classUsername = "alert alert-success";
         this.messageUsername = res.message;
       }
       else {
+        this.success_Username = false;
         this.classUsername = "alert alert-danger";
         this.messageUsername = res.message;
       }
@@ -105,10 +111,12 @@ export class ProfileComponent implements OnInit {
     this.service.checkEmail(this.Person.email).subscribe((res)=>{
       if(res.success)
       {
+        this.success_Email = true;
         this.classEmail = "alert alert-success";
         this.messageEmail = res.message;
       }
       else {
+        this.success_Email = false;
         this.classEmail = "alert alert-danger";
         this.messageEmail = res.message;
       }
@@ -126,11 +134,13 @@ export class ProfileComponent implements OnInit {
           if(res.success)
           {
            localStorage.setItem('userName',this.Person.userName);
+           
            this.classUsername = "alert alert-success";
            this.messageUsername = res.message;
           }
           else 
           {
+            
             this.classUsername = "alert alert-danger";
             this.messageUsername = res.message; 
           }
